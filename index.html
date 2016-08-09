@@ -1,0 +1,409 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Robot pédagogique</title>
+
+        <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+        
+        <script src="blockly_compressed.js"></script>
+        <script src="blocks_compressed.js"></script>
+        <script  src = "javascript_compressed.js" > </script>
+
+        <script src="msg/js/en.js"></script>
+        <script src ="blocks/robot.js"> </script>
+        <script src ="blocks/math.js"> </script>
+        <script src="generators/javascript/robot.js"> </script>
+
+         <!-- Latest compiled and minified CSS -->
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+         <!-- Optional theme -->
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+         <!-- Latest compiled and minified JavaScript -->
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <style>
+            body {
+                padding-top: 50px;
+                padding-bottom: 20px;
+            }
+        </style>
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Robot pédagogique</a>
+        </div>
+      </div>
+    </nav>
+    <div class="jumbotron">
+      <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+          <div class="col-md-12">
+            <div id="blocklyDiv" style="height: 480px; width: 100%;"></div>
+            <xml id="toolbox" style="display: none">
+                <category name="Instruction" colour="210">
+                  <block type="avance"></block>
+                  <block type="recule"></block>
+                  <block type="Stop"></block>
+                  <block type="RotationDroite"></block>
+                  <block type="RotationGauche"></block>
+                </category>
+                <category name="Condition" colour="120">
+                  <block type="if_inf"></block>
+                  <block type="if_sup"></block>
+                  <block type="loop_dist_inf"></block>
+                  <block type="loop_dist_sup"></block>
+
+                </category>
+                <category name="Variable" colour="0">
+                  <block type="math_number"></block>
+                  <block type="option"></block>
+                </category>
+
+                <category name="Couleur" colour="50">
+                  <block type="VERT"></block>
+                  <block type="ROUGE"></block>
+                  <block type="MAGENTA"></block>
+                  <block type="BLEU"></block>
+                  <block type="TURQUOISE"></block>
+                  <block type="JAUNE"></block>
+                  <block type="VIOLET"></block>
+                  <!--<block type="entrer_couleur_main"></block> -->
+
+                </category>
+
+            </xml>
+          </div> <!-- col -->
+        </div><!-- row -->
+        <br/>
+        <div class="row">
+          <div class="col-md-12">
+            <textarea id="textbox" style="width: 100%; height: 480px;">
+
+  #include <Servo.h>
+  #include <Adafruit_NeoPixel.h>
+  #include <avr/power.h>
+
+  //POUR LE CAPTEUR
+  #define trig 2 // broche trig du capteur US HC-SR04
+  #define echo 4 // broche echo du capteur US HC-SR04
+  long lecture_echo = 0;
+  long cm = 0;
+
+  //POUR LA COULEUR
+  #define ROUGE 255,0,0
+  #define VERT 0,255,0
+  #define MAGENTA 139,0,139
+  #define BLEU 0,0,255
+  #define BLANC 127,127,127
+  #define TURQUOISE 0,245,255
+  #define JAUNE 255,215,0
+  #define VIOLET 208,32,114
+  #define OFF 0,0,0
+
+  #define PIN 6
+
+
+
+  Adafruit_NeoPixel strip = Adafruit_NeoPixel(16, PIN, NEO_GRB + NEO_KHZ800);
+  Servo RoueGauche;
+  Servo RoueDroite;
+
+
+  void setup(){
+    #if defined (__AVR_ATtiny85__)
+    if (F_CPU == 16000000) clock_prescale_set(clock_div_1);
+    #endif
+    pinMode (trig,OUTPUT); // broche broche trig configurée en sortie
+    digitalWrite(trig, LOW); // met un niveau logique , LOW (BAS) sur la broche trig
+    pinMode(echo, INPUT);  // la broche echo est initialisée en entree
+    RoueGauche.attach(3);
+    RoueDroite.attach(5);
+    strip.begin();
+    strip.show();
+  }
+
+
+  void Stop(int temps, int R, int G, int B, int choix) {
+   RoueDroite.write(90);
+   RoueGauche.write(90);
+   switch (choix){
+      case 1 :
+         for(int i =0; i < 16; i++){
+            strip.setPixelColor(i, strip.Color(R,G,B));
+         }
+         strip.show();
+         delay(temps * 1000);
+         break;
+      case 2 :
+        rainbowCycle(20);
+        break;
+      case 3 :
+        rainbowCycle(20);
+        break;
+      case 4 :
+        theaterChaseRainbow(50);
+        break;
+    }
+  }
+
+  void Avant( int temps,  int R, int G, int B, int choix) {
+    RoueDroite.write(180);
+    RoueGauche.write(0);
+
+    ringOff();
+    switch (choix){
+      case 1 :
+        strip.setPixelColor(14, strip.Color(R,G,B));
+        strip.setPixelColor(15, strip.Color(R,G,B));
+        strip.setPixelColor(0, strip.Color(R,G,B));
+        strip.show();
+        break;
+      case 2 :
+        rainbowCycle(20);
+        break;
+      case 3 :
+        rainbowCycle(20);
+        break;
+      case 4 :
+        theaterChaseRainbow(50);
+        break;
+    }
+    delay(temps * 1000);
+  }
+
+  void Arriere(int temps,  int R, int G, int B, int choix) {
+    RoueDroite.write(0);
+    RoueGauche.write(180);
+    ringOff();
+    switch (choix){
+      case 1 :
+      strip.setPixelColor(8, strip.Color(R,G,B));
+      strip.setPixelColor(6, strip.Color(R,G,B));
+      strip.setPixelColor(7, strip.Color(R,G,B));
+      strip.show();
+      break;
+      case 2 :
+      rainbowCycle(20);
+      break;
+      case 3 :
+      rainbowCycle(20);
+      break;
+      case 4 :
+      theaterChaseRainbow(50);
+      break;
+    }
+    delay(temps * 1000);
+    }
+
+  void Gauche(int temps,  int R, int G, int B, int choix) {
+    RoueDroite.write(180);
+    RoueGauche.write(180);
+
+
+    ringOff();
+    switch (choix){
+      case 1 :
+        for(int i=2;i < 5;i++){
+        strip.setPixelColor(i, strip.Color(R,G,B));
+        strip.show();
+        }
+        break;
+      case 2 :
+        rainbowCycle(20);
+        break;
+      case 3 :
+        rainbowCycle(20);
+        break;
+      case 4 :
+        theaterChaseRainbow(50);
+        break;
+    }
+    delay(temps * 1000);
+  }
+
+  void Droite(int temps , int R, int G, int B, int choix) {
+    RoueDroite.write(0);
+    RoueGauche.write(0);
+    ringOff();
+    switch (choix){
+      case 1 :
+        for(int i=10;i < 13;i++){
+        strip.setPixelColor(i, strip.Color(R,G,B)); // LED rouge brillance moyenne.
+        strip.show(); // Envoi des données vers le Ring.
+        }
+        break;
+      case 2 :
+        rainbowCycle(20);
+        break;
+      case 3 :
+        rainbowCycle(20);
+        break;
+      case 4 :
+        theaterChaseRainbow(50);
+        break;
+    }
+    delay(temps * 1000);
+  }
+
+  void ringOff()
+  {
+    for(int i=0;i < 16;i++){
+    strip.setPixelColor(i, strip.Color(OFF)); // Toutes les LED éteintes
+    strip.show(); // Envoi des données vers le Ring.
+    }
+  }
+
+  void colorWipe(uint32_t c, uint8_t wait) {
+    for(uint16_t i=0; i<strip.numPixels(); i++) {
+      strip.setPixelColor(i, c);
+      strip.show();
+      delay(wait);
+    }
+  }
+
+  void rainbow(uint8_t wait) {
+    uint16_t i, j;
+
+    for(j=0; j<256; j++) {
+      for(i=0; i<strip.numPixels(); i++) {
+        strip.setPixelColor(i, Wheel((i+j) & 255));
+      }
+      strip.show();
+      delay(wait);
+    }
+  }
+
+  void rainbowCycle(uint8_t wait) {
+    uint16_t i, j;
+
+    for(j=0; j<256; j++) { // 1 cycle couleur arc en ciel j<256*n = n cycles couleur arc en ciel
+      for(i=0; i< strip.numPixels(); i++) {
+        strip.setPixelColor(i, Wheel(((i * 256 / strip.numPixels()) + j) & 255));
+      }
+      strip.show();
+      delay(wait);
+    }
+  }
+
+
+  //Theatre-style crawling lights.
+  void theaterChase(uint32_t c, uint8_t wait) {
+    for (int j=0; j<10; j++) {  //do 10 cycles of chasing
+      for (int q=0; q < 3; q++) {
+        for (uint16_t i=0; i < strip.numPixels(); i=i+3) {
+          strip.setPixelColor(i+q, c);    //turn every third pixel on
+        }
+        strip.show();
+
+        delay(wait);
+
+        for (uint16_t i=0; i < strip.numPixels(); i=i+3) {
+          strip.setPixelColor(i+q, 0);        //turn every third pixel off
+        }
+      }
+    }
+  }
+
+  //Theatre-style crawling lights with rainbow effect
+  void theaterChaseRainbow(uint8_t wait) {
+    for (int j=0; j < 256; j++) {     // cycle all 256 colors in the wheel
+      for (int q=0; q < 3; q++) {
+        for (uint16_t i=0; i < strip.numPixels(); i=i+3) {
+          strip.setPixelColor(i+q, Wheel( (i+j) % 255));    //turn every third pixel on
+        }
+        strip.show();
+
+        delay(wait);
+
+        for (uint16_t i=0; i < strip.numPixels(); i=i+3) {
+          strip.setPixelColor(i+q, 0);        //turn every third pixel off
+        }
+      }
+    }
+  }
+
+  uint32_t Wheel(byte WheelPos) {
+    WheelPos = 255 - WheelPos;
+    if(WheelPos < 85) {
+     return strip.Color(255 - WheelPos * 3, 0, WheelPos * 3);
+    } else if(WheelPos < 170) {
+      WheelPos -= 85;
+     return strip.Color(0, WheelPos * 3, 255 - WheelPos * 3);
+    } else {
+     WheelPos -= 170;
+     return strip.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
+    }
+  }
+  void loop(){
+
+    digitalWrite(trig, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trig, LOW);
+    lecture_echo = pulseIn(echo, HIGH);
+    cm = lecture_echo / 58;
+    </textarea>
+  <!-- on decale tout pour avoir un jolie affiche (code bien ou presque indenté) -->
+            <br/> <button onclick="showCode()">Genere code</button>
+            <button id="create"> <a download="info.txt" id="downloadlink">Download</a></button>
+          </div> <!-- col -->
+        </div> <!-- row -->
+      </div>
+    </div>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+
+          <script>
+            var workspace = Blockly.inject('blocklyDiv',
+            {toolbox: document.getElementById('toolbox')});
+            function showCode()
+            {
+              //alert (code);
+              var code = Blockly.JavaScript.workspaceToCode(workspace);
+              window.LoopTrap = 1000;
+              Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
+              $("textarea").append(code + '\n}');
+            }
+            //workspace.addChangeListener(showCode);
+            function download(filename, text) {
+              var link = document.createElement('a');
+              link.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+              link.setAttribute('download', filename);
+              link.click();
+           }
+
+           $("#create").click(function(){
+             download('code.ino', $("#textbox").val());
+           });
+          </script>
+
+
+
+
+      <footer>
+        <p>&copy; Julien MARIE, Alexandre MOUTOUH, Florent COUROUBLE, Clément LOUBIERE, Sylvain CUOMO</p>
+      </footer>
+    </div> <!-- /container -->
+
+    </body>
+</html>
