@@ -1,397 +1,503 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Robot pédagogique</title>
+<head>
+<meta charset="utf-8">
+<title>Robot pédagogique</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- JQuery -->
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 
-        <!-- JQuery -->
-        <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-        
-        
-        <!-- Bootstrap -->
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-        <!-- Latest compiled and minified JavaScript -->
-         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        
-        
-        <!-- Blockly -->
-        <script src="blockly/blockly_compressed.js"></script>
-        <script src="blockly/blocks_compressed.js"></script>
-        <script  src ="blockly/javascript_compressed.js" > </script>
-        <script src="blockly/msg/js/en.js"></script>
-        <script src ="blockly/blocks/math.js"> </script>
-        
-        
-        <!--RobotduLAB Blockly -->
-        <script src ="robotGenerator.js"> </script>
-        <script src="robotBlock.js"> </script>
 
-        <!--CSS-->
-        <link rel="stylesheet" href="css/main.css">
+<!-- Bootstrap -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    </head>
-    <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">Robot pédagogique</a>
+
+<!-- Blockly -->
+<script src="blockly/blockly_compressed.js"></script>
+<script src="blockly/blocks_compressed.js"></script>
+<script  src ="blockly/javascript_compressed.js" > </script>
+<script src="blockly/msg/js/en.js"></script>
+<script src ="blockly/blocks/math.js"> </script>
+
+
+<!--RobotduLAB Blockly -->
+<script src ="robotGenerator.js"> </script>
+<script src="robotBlock.js"> </script>
+
+<!--CSS-->
+<link rel="stylesheet" href="css/main.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+<style>
+
+    body {
+        font: 400 15px/1.8 Lato, sans-serif;
+        color: #777;
+    }
+    h3, h4 {
+        margin: 10px 0 30px 0;
+        letter-spacing: 10px;      
+        font-size: 20px;
+        color: #111;
+    }
+    .container {
+        padding: 80px 120px;
+    }
+    .person {
+        border: 10px solid transparent;
+        margin-bottom: 25px;
+        width: 80%;
+        height: 80%;
+        opacity: 0.7;
+    }
+    .person:hover {
+        border-color: #f1f1f1;
+    }
+    .carousel-inner img {
+        -webkit-filter: grayscale(90%);
+        filter: grayscale(90%); /* make all photos black and white */ 
+        width: 100%; /* Set width to 100% */
+        margin: auto;
+    }
+    .carousel-caption h3 {
+        color: #fff !important;
+    }
+    @media (max-width: 600px) {
+      .carousel-caption {
+        display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */
+      }
+    }
+    .bg-1 {
+        background: #2d2d30;
+        color: #bdbdbd;
+    }
+    .bg-1 h3 {color: #fff;}
+    .bg-1 p {font-style: italic;}
+    .list-group-item:first-child {
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+    }
+    .list-group-item:last-child {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    .thumbnail {
+        padding: 0 0 15px 0;
+        border: none;
+        border-radius: 0;
+    }
+    .thumbnail p {
+        margin-top: 15px;
+        color: #555;
+    }
+    .btn {
+        padding: 10px 20px;
+        background-color: #333;
+        color: #f1f1f1;
+        border-radius: 0;
+        transition: .2s;
+    }
+    .btn:hover, .btn:focus {
+        border: 1px solid #333;
+        background-color: #fff;
+        color: #000;
+    }
+    .modal-header, h4, .close {
+        background-color: #333;
+        color: #fff !important;
+        text-align: center;
+        font-size: 30px;
+    }
+    .modal-header, .modal-body {
+        padding: 40px 50px;
+    }
+    .nav-tabs li a {
+        color: #777;
+    }
+    #googleMap {
+        width: 100%;
+        height: 400px;
+        -webkit-filter: grayscale(80%);
+        filter: grayscale(80%);
+    }  
+    .navbar {
+        font-family: Montserrat, sans-serif;
+        margin-bottom: 0;
+        background-color: #2d2d30;
+        border: 0;
+        font-size: 11px !important;
+        letter-spacing: 4px;
+        opacity: 0.9;
+    }
+    .navbar li a, .navbar .navbar-brand { 
+        color: #d5d5d5 !important;
+    }
+    .navbar-nav li a:hover {
+        color: #fff !important;
+    }
+    .navbar-nav li.active a {
+        color: #fff !important;
+        background-color: #29292c !important;
+    }
+    .navbar-default .navbar-toggle {
+        border-color: transparent;
+    }
+    .open .dropdown-toggle {
+        color: #fff;
+        background-color: #555 !important;
+    }
+    .dropdown-menu li a {
+        color: #000 !important;
+    }
+    .dropdown-menu li a:hover {
+        background-color: red !important;
+    }
+    footer {
+        background-color: #2d2d30;
+        color: #f5f5f5;
+        padding: 32px;
+    }
+    footer a {
+        color: #f5f5f5;
+    }
+    footer a:hover {
+        color: #777;
+        text-decoration: none;
+    }  
+    .form-control {
+        border-radius: 0;
+    }
+    textarea {
+        resize: none;
+    }
+
+    </style>
+</head>
+      
+<body id="home" data-spy="scroll" data-target=".navbar" data-offset="50">
+
+<!-- Navbar --> 
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+     <div class="navbar-header">
+       <a class="navbar-brand" href="#">RobotDuLAB</a>
+     </div>
+     <ul class="nav navbar-nav">
+      <li><a href="#home">Accueil</a></li>
+      <li><a href="#blockly">Blockly</a></li>
+      <li><a href="#arduino">Code Arduino</a></li>
+      <li><a href="#xml">Document XML</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+     </ul>
+</nav>
+
+<!-- Container (Section Carousel photo) -->    
+<div id="Carousel" class="carousel slide" data-ride="carousel">
+   <!-- Indicators -->
+   <ol class="carousel-indicators">
+     <li data-target="#Carousel" data-slide-to="0" class="active"></li>
+     <li data-target="#Carousel" data-slide-to="1"></li>
+     <li data-target="#Carousel" data-slide-to="2"></li>
+   </ol>
+
+   <!-- Wrapper for slides -->
+   <div class="carousel-inner" role="listbox">
+     <div class="item active">
+      <img src="images/RoboduLAB_avec_lego.jpg" alt="RobotDuLAB" width="1200" height="700">
+      <div class="carousel-caption">
+        <h3>Un robot simple, peux couteux et facilement reproductible</h3>
+      </div>      
+     </div>
+
+     <div class="item">
+      <img src="images/Schéma_sans_ring.JPG" alt="Schéma" width="1200" height="700">
+      <div class="carousel-caption">
+        <h3>Avec des schémas électroniques simples</h3>
+      </div>      
+     </div>
+   
+     <div class="item">
+      <img src="images/Logo_labo-3333px.png" alt="Laboratoire d'Aix-périmentation et de Bidouille" width="1200" height="700">
+      <div class="carousel-caption">
+        <h3>Imaginé et conçu par une large communauté de Makers</h3>
+      </div>      
+     </div>
+   </div>
+
+   <!-- Left and right controls -->
+   <a class="left carousel-control" href="#Carousel" role="button" data-slide="prev">
+     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+     <span class="sr-only">Previous</span>
+   </a>
+   <a class="right carousel-control" href="#Carousel" role="button" data-slide="next">
+     <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+     <span class="sr-only">Next</span>
+   </a>
+</div>
+
+
+<!-- Container (Section Présentation du projet) -->  
+<div id=presentation class="bg-1">
+    <div class="container">
+   <h3>Un robot pour apprendre à programmer aux enfants</h3>
+   <ul>
+   <li> Utilisable en écoles primaires, collèges et lycées </li>
+   <li>Toutes les pièces mécaniques sont imprimables (impression 3D – fichiers .stl fournis) </li>
+   <li>Partie électronique basée sur une carte de prototypage « arduino » </li>
+   <li>Libre (copiable, modifiable) et évolutif (de nombreuses options possibles) </li>
+   </ul>
+   <p>
+   RoboduLAB, permet une approche ludique de l’apprentissage du code à l’école primaire, des plots au format lego permettent de personnaliser le robot. En collège 
+   et en lycée RoboduLAB est un support de thème très riche pour le travail en équipes projets : conception, réalisation, expérimentation. 
+
+   La programmation se fait par assemblage de blocs (type scratch). Le programme se télécharge directement dans le robot depuis le PC ou la tablette en WIFI.
+   </p>
+    </div>
+</div>
+
+<!-- Container (Section Blockly) -->            
+<div id="blockly" class="container">
+    <h3 class="text-center">Blockly</h3>
+    <div id="blocklyDiv" style="height: 500px;"></div>
+    <xml id="toolbox" style="display: none">
+       <category name="Instruction" colour="210">
+         <block type="avance"></block>
+         <block type="recule"></block>
+         <block type="Stop"></block>
+         <block type="RotationDroite"></block>
+         <block type="RotationGauche"></block>
+       </category>
+
+       <category name="Condition" colour="120">
+         <block type="if_inf"></block>
+         <block type="if_sup"></block>
+         <block type="loop_dist_inf"></block>
+         <block type="loop_dist_sup"></block>
+       </category>
+
+       <category name="Variable" colour="0">
+         <block type="math_number"></block>
+         <block type="option"></block>
+       </category>
+
+       <category name="Couleur" colour="50">
+         <block type="VERT"></block>
+         <block type="ROUGE"></block>
+         <block type="MAGENTA"></block>
+         <block type="BLEU"></block>
+         <block type="TURQUOISE"></block>
+         <block type="JAUNE"></block>
+         <block type="VIOLET"></block>
+       </category>
+    </xml>
+</div>
+
+
+<!-- Container (Section Arduino) -->            
+<div id="arduino" class="bg-1">
+    <div class="container">
+        <h3 class="text-center">Code Arduino</h3>
+        <textarea id="textbox" style="width: 100%; height: 480px;">
+  #include <RobotDuLAB.h>
+
+  #define TRIGGER_PIN 2 // broche trig du capteur US HC-SR04
+  #define ECHO_PIN 4 // broche echo du capteur US HC-SR04
+  #define ROUE_DROITE_PIN 5  
+  #define ROUE_GAUCHE_PIN 3
+  #define ANNEAU_LED_PIN 6
+
+  RobotDuLAB robotDuLAB(TRIGGER_PIN, ECHO_PIN, ROUE_DROITE_PIN, ROUE_GAUCHE_PIN, ANNEAU_LED_PIN);
+
+  void setup() {
+    robotDuLAB.begin();
+  }
+
+  void loop() {
+        </textarea>
+        <br/>
+        <button onclick="showCode()"> Générer</button>
+        <button id="create"> <a download="info.txt" id="downloadlink">Télécharger</a></button>
+    </div>
+</div>
+
+<!-- Container (Section XML) -->
+<div id="xml" class="container">
+  <h3 class="text-center">Document XML</h3>
+    <div>
+        XML
+    </div>
+</div>
+<!-- Container (Section Equipe) -->
+<div id="lequipe" class="bg-1 text-center">
+    <div class="container">
+      <h3>L'Équipe</h3>
+      <div class="row">
+        <div class="col-sm-4">
+          <p class="text-center"><strong>Name</strong></p><br>
+          <a href="#demo" data-toggle="collapse">
+            <img src="images/membredelequipe.jpg" class="img-circle person" alt="Random Name" width="255" height="255">
+          </a>
+          <div id="demo" class="collapse">
+            <p>Fonction dans l'équipe</p>
+            <p>Particularité</p>
+            <p>Membre depuis 2013</p>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <p class="text-center"><strong>Name</strong></p><br>
+          <a href="#demo2" data-toggle="collapse">
+            <img src="images/membredelequipe.jpg" class="img-circle person" alt="Random Name" width="255" height="255">
+          </a>
+          <div id="demo2" class="collapse">
+            <p>Fonction dans l'équipe</p>
+            <p>Particularité</p>
+            <p>Membre depuis 2013</p>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <p class="text-center"><strong>Name</strong></p><br>
+          <a href="#demo3" data-toggle="collapse">
+            <img src="images/membredelequipe.jpg" class="img-circle person" alt="Random Name" width="255" height="255">
+          </a>
+          <div id="demo3" class="collapse">
+            <p>Fonction dans l'équipe</p>
+            <p>Particularité</p>
+            <p>Membre depuis 2013</p>
+          </div>
         </div>
       </div>
-    </nav>
-    <div class="jumbotron">
-      <div class="container">
-        <!-- Example row of columns -->
-        <div class="row">
-          <div class="col-md-12">
-            <div id="blocklyDiv" style="height: 480px; width: 100%;"></div>
-            <xml id="toolbox" style="display: none">
-                <category name="Instruction" colour="210">
-                  <block type="avance"></block>
-                  <block type="recule"></block>
-                  <block type="Stop"></block>
-                  <block type="RotationDroite"></block>
-                  <block type="RotationGauche"></block>
-                </category>
-                <category name="Condition" colour="120">
-                  <block type="if_inf"></block>
-                  <block type="if_sup"></block>
-                  <block type="loop_dist_inf"></block>
-                  <block type="loop_dist_sup"></block>
-
-                </category>
-                <category name="Variable" colour="0">
-                  <block type="math_number"></block>
-                  <block type="option"></block>
-                </category>
-
-                <category name="Couleur" colour="50">
-                  <block type="VERT"></block>
-                  <block type="ROUGE"></block>
-                  <block type="MAGENTA"></block>
-                  <block type="BLEU"></block>
-                  <block type="TURQUOISE"></block>
-                  <block type="JAUNE"></block>
-                  <block type="VIOLET"></block>
-                  <!--<block type="entrer_couleur_main"></block> -->
-
-                </category>
-
-            </xml>
-          </div> <!-- col -->
-        </div><!-- row -->
-        <br/>
-        <div class="row">
-          <div class="col-md-12">
-            <textarea id="textbox" style="width: 100%; height: 480px;">
-
-  #include <Servo.h>
-  #include <Adafruit_NeoPixel.h>
-  #include <avr/power.h>
-
-  //POUR LE CAPTEUR
-  #define trig 2 // broche trig du capteur US HC-SR04
-  #define echo 4 // broche echo du capteur US HC-SR04
-  long lecture_echo = 0;
-  long cm = 0;
-
-  //POUR LA COULEUR
-  #define ROUGE 255,0,0
-  #define VERT 0,255,0
-  #define MAGENTA 139,0,139
-  #define BLEU 0,0,255
-  #define BLANC 127,127,127
-  #define TURQUOISE 0,245,255
-  #define JAUNE 255,215,0
-  #define VIOLET 208,32,114
-  #define OFF 0,0,0
-
-  #define PIN 6
-
-
-
-  Adafruit_NeoPixel strip = Adafruit_NeoPixel(16, PIN, NEO_GRB + NEO_KHZ800);
-  Servo RoueGauche;
-  Servo RoueDroite;
-
-
-  void setup(){
-    #if defined (__AVR_ATtiny85__)
-    if (F_CPU == 16000000) clock_prescale_set(clock_div_1);
-    #endif
-    pinMode (trig,OUTPUT); // broche broche trig configurée en sortie
-    digitalWrite(trig, LOW); // met un niveau logique , LOW (BAS) sur la broche trig
-    pinMode(echo, INPUT);  // la broche echo est initialisée en entree
-    RoueGauche.attach(3);
-    RoueDroite.attach(5);
-    strip.begin();
-    strip.show();
-  }
-
-
-  void Stop(int temps, int R, int G, int B, int choix) {
-   RoueDroite.write(90);
-   RoueGauche.write(90);
-   switch (choix){
-      case 1 :
-         for(int i =0; i < 16; i++){
-            strip.setPixelColor(i, strip.Color(R,G,B));
-         }
-         strip.show();
-         delay(temps * 1000);
-         break;
-      case 2 :
-        rainbowCycle(20);
-        break;
-      case 3 :
-        rainbowCycle(20);
-        break;
-      case 4 :
-        theaterChaseRainbow(50);
-        break;
-    }
-  }
-
-  void Avant( int temps,  int R, int G, int B, int choix) {
-    RoueDroite.write(180);
-    RoueGauche.write(0);
-
-    ringOff();
-    switch (choix){
-      case 1 :
-        strip.setPixelColor(14, strip.Color(R,G,B));
-        strip.setPixelColor(15, strip.Color(R,G,B));
-        strip.setPixelColor(0, strip.Color(R,G,B));
-        strip.show();
-        break;
-      case 2 :
-        rainbowCycle(20);
-        break;
-      case 3 :
-        rainbowCycle(20);
-        break;
-      case 4 :
-        theaterChaseRainbow(50);
-        break;
-    }
-    delay(temps * 1000);
-  }
-
-  void Arriere(int temps,  int R, int G, int B, int choix) {
-    RoueDroite.write(0);
-    RoueGauche.write(180);
-    ringOff();
-    switch (choix){
-      case 1 :
-      strip.setPixelColor(8, strip.Color(R,G,B));
-      strip.setPixelColor(6, strip.Color(R,G,B));
-      strip.setPixelColor(7, strip.Color(R,G,B));
-      strip.show();
-      break;
-      case 2 :
-      rainbowCycle(20);
-      break;
-      case 3 :
-      rainbowCycle(20);
-      break;
-      case 4 :
-      theaterChaseRainbow(50);
-      break;
-    }
-    delay(temps * 1000);
-    }
-
-  void Gauche(int temps,  int R, int G, int B, int choix) {
-    RoueDroite.write(180);
-    RoueGauche.write(180);
-
-
-    ringOff();
-    switch (choix){
-      case 1 :
-        for(int i=2;i < 5;i++){
-        strip.setPixelColor(i, strip.Color(R,G,B));
-        strip.show();
-        }
-        break;
-      case 2 :
-        rainbowCycle(20);
-        break;
-      case 3 :
-        rainbowCycle(20);
-        break;
-      case 4 :
-        theaterChaseRainbow(50);
-        break;
-    }
-    delay(temps * 1000);
-  }
-
-  void Droite(int temps , int R, int G, int B, int choix) {
-    RoueDroite.write(0);
-    RoueGauche.write(0);
-    ringOff();
-    switch (choix){
-      case 1 :
-        for(int i=10;i < 13;i++){
-        strip.setPixelColor(i, strip.Color(R,G,B)); // LED rouge brillance moyenne.
-        strip.show(); // Envoi des données vers le Ring.
-        }
-        break;
-      case 2 :
-        rainbowCycle(20);
-        break;
-      case 3 :
-        rainbowCycle(20);
-        break;
-      case 4 :
-        theaterChaseRainbow(50);
-        break;
-    }
-    delay(temps * 1000);
-  }
-
-  void ringOff()
-  {
-    for(int i=0;i < 16;i++){
-    strip.setPixelColor(i, strip.Color(OFF)); // Toutes les LED éteintes
-    strip.show(); // Envoi des données vers le Ring.
-    }
-  }
-
-  void colorWipe(uint32_t c, uint8_t wait) {
-    for(uint16_t i=0; i<strip.numPixels(); i++) {
-      strip.setPixelColor(i, c);
-      strip.show();
-      delay(wait);
-    }
-  }
-
-  void rainbow(uint8_t wait) {
-    uint16_t i, j;
-
-    for(j=0; j<256; j++) {
-      for(i=0; i<strip.numPixels(); i++) {
-        strip.setPixelColor(i, Wheel((i+j) & 255));
-      }
-      strip.show();
-      delay(wait);
-    }
-  }
-
-  void rainbowCycle(uint8_t wait) {
-    uint16_t i, j;
-
-    for(j=0; j<256; j++) { // 1 cycle couleur arc en ciel j<256*n = n cycles couleur arc en ciel
-      for(i=0; i< strip.numPixels(); i++) {
-        strip.setPixelColor(i, Wheel(((i * 256 / strip.numPixels()) + j) & 255));
-      }
-      strip.show();
-      delay(wait);
-    }
-  }
-
-
-  //Theatre-style crawling lights.
-  void theaterChase(uint32_t c, uint8_t wait) {
-    for (int j=0; j<10; j++) {  //do 10 cycles of chasing
-      for (int q=0; q < 3; q++) {
-        for (uint16_t i=0; i < strip.numPixels(); i=i+3) {
-          strip.setPixelColor(i+q, c);    //turn every third pixel on
-        }
-        strip.show();
-
-        delay(wait);
-
-        for (uint16_t i=0; i < strip.numPixels(); i=i+3) {
-          strip.setPixelColor(i+q, 0);        //turn every third pixel off
-        }
-      }
-    }
-  }
-
-  //Theatre-style crawling lights with rainbow effect
-  void theaterChaseRainbow(uint8_t wait) {
-    for (int j=0; j < 256; j++) {     // cycle all 256 colors in the wheel
-      for (int q=0; q < 3; q++) {
-        for (uint16_t i=0; i < strip.numPixels(); i=i+3) {
-          strip.setPixelColor(i+q, Wheel( (i+j) % 255));    //turn every third pixel on
-        }
-        strip.show();
-
-        delay(wait);
-
-        for (uint16_t i=0; i < strip.numPixels(); i=i+3) {
-          strip.setPixelColor(i+q, 0);        //turn every third pixel off
-        }
-      }
-    }
-  }
-
-  uint32_t Wheel(byte WheelPos) {
-    WheelPos = 255 - WheelPos;
-    if(WheelPos < 85) {
-     return strip.Color(255 - WheelPos * 3, 0, WheelPos * 3);
-    } else if(WheelPos < 170) {
-      WheelPos -= 85;
-     return strip.Color(0, WheelPos * 3, 255 - WheelPos * 3);
-    } else {
-     WheelPos -= 170;
-     return strip.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
-    }
-  }
-  void loop(){
-
-    digitalWrite(trig, HIGH);
-    delayMicroseconds(10);
-    digitalWrite(trig, LOW);
-    lecture_echo = pulseIn(echo, HIGH);
-    cm = lecture_echo / 58;
-    </textarea>
-  <!-- on decale tout pour avoir un jolie affiche (code bien ou presque indenté) -->
-            <br/> <button onclick="showCode()">Genere code</button>
-            <button id="create"> <a download="info.txt" id="downloadlink">Download</a></button>
-          </div> <!-- col -->
-        </div> <!-- row -->
-      </div>
     </div>
+</div>
+        
+<div id="googleMap"></div>
+        
+<!-- Container (Contact Section) -->
+<div id="contact" class="bg-1">
+    <div  class="container">
+        <h3 class="text-center">Contact</h3>
+        <p class="text-center"><em>N'hésitez pas à nous laisser un message</em></p>
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
+        <div class="row">
+            <div class="col-md-4">
+                <p><span class="glyphicon glyphicon-map-marker"></span>Aix-en-Provence, France</p>
+                <p><span class="glyphicon glyphicon-phone"></span>Phone: +33 04 42 93 90 91</p>
+                <p><span class="glyphicon glyphicon-envelope"></span>Email: robotdulab@labaixbidouille.com</p>
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="name" name="name" placeholder="Nom" type="text" required>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+                    </div>
+                </div>
+                <textarea class="form-control" id="comments" name="comments" placeholder="Commentaire" rows="5"></textarea>
+                <br>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <button class="btn pull-right" type="submit">Envoyer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-          <script>
-            var workspace = Blockly.inject('blocklyDiv',
-            {toolbox: document.getElementById('toolbox')});
-            function showCode()
-            {
-              //alert (code);
-              var code = Blockly.JavaScript.workspaceToCode(workspace);
-              window.LoopTrap = 1000;
-              Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
-              $("textarea").append(code + '\n}');
-            }
-            //workspace.addChangeListener(showCode);
-            function download(filename, text) {
-              var link = document.createElement('a');
-              link.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-              link.setAttribute('download', filename);
-              link.click();
-           }
+        
+     
 
-           $("#create").click(function(){
-             download('code.ino', $("#textbox").val());
-           });
-          </script>
+<!-- Add Google Maps -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCETX-XlbxEsaDGvFlyYAW8jjDHCXR6aU&callback=initializeMap" async defer></script>
 
+<script>
+    function initializeMap() {
+        var myCenter = {lat: 43.513778, lng: 5.450874} ;
 
+        var mapProp = {
+            center: myCenter,
+            zoom:16,
+            scrollwheel:false,
+            draggable:false,
+            mapTypeId:google.maps.MapTypeId.ROADMAP
+        };
 
+        var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
 
-      <footer>
-        <p>&copy; Julien MARIE, Alexandre MOUTOUH, Florent COUROUBLE, Clément LOUBIERE, Sylvain CUOMO</p>
-      </footer>
-    </div> <!-- /container -->
+        var marker = new google.maps.Marker({
+            position:myCenter,
+        });
 
-    </body>
+        marker.setMap(map);
+    }
+
+   //google.maps.event.addDomListener(window, 'load', initialize);
+
+   var workspace = Blockly.inject('blocklyDiv', {toolbox: document.getElementById('toolbox')});
+   function showCode(){
+        //alert (code);
+        var code = Blockly.JavaScript.workspaceToCode(workspace);
+        window.LoopTrap = 1000;
+        Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
+        $("textarea").append(code + '\n}');
+    }
+
+   //workspace.addChangeListener(showCode);
+   function download(filename, text) {
+        var link = document.createElement('a');
+        link.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        link.setAttribute('download', filename);
+        link.click();
+    }
+
+    $(document).ready(function(){
+        // Initialize Tooltip
+        $('[data-toggle="tooltip"]').tooltip(); 
+    })
+
+    $("#create").click(function(){
+        download('code.ino', $("#textbox").val());
+    });
+  
+    $(document).ready(function(){
+        // Add smooth scrolling to all links in navbar + footer link
+        $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
+
+        // Make sure this.hash has a value before overriding default behavior
+        if (this.hash !== "") {
+            // Prevent default anchor click behavior
+            event.preventDefault();
+
+            // Store hash
+            var hash = this.hash;
+
+            // Using jQuery's animate() method to add smooth page scroll
+            // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+            $('html, body').animate({
+                scrollTop: $(hash).offset().top
+            }, 
+            900, 
+            function(){
+                // Add hash (#) to URL when done scrolling (default click behavior)
+                window.location.hash = hash;
+            });
+        } // End if 
+    });
+})
+  
+ </script>
+      
+<footer class="text-center">
+    <a class="up-arrow" href="#home" data-toggle="tooltip" title="TO TOP">
+      <span class="glyphicon glyphicon-chevron-up"></span>
+    </a><br>
+    <p>RobotDuLAB est un projet communautaire du <a href="http://labaixbidouille.com" data-toggle="tooltip" title="Visiter labaixbidouille.com">Laboratoire d'Aix-périmentation et de Bidouille</a></p> 
+</footer>
+
+</body>
 </html>
