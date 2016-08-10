@@ -28,6 +28,11 @@
 <script src ="robotGenerator.js"> </script>
 <script src="robotBlock.js"> </script>
 
+<!--Codemirror -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/mode/clike/clike.js"></script>
+
 <!--CSS-->
 <link rel="stylesheet" href="css/main.css">
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
@@ -175,6 +180,10 @@
         resize: none;
     }
 
+    .CodeMirror {
+      height: 700px;
+    }
+
     </style>
 </head>
       
@@ -262,7 +271,7 @@
 <!-- Container (Section Blockly) -->            
 <div id="blockly" class="container">
     <h3 class="text-center">Blockly</h3>
-    <div id="blocklyDiv" style="width: 100%; height: 700px;"></div>
+    <div id="blocklyDiv" style="height: 700px;"></div>
     <xml id="toolbox" style="display: none">
        <category name="Robot" colour="300">
          <block type="Avancer"></block>
@@ -440,11 +449,18 @@
         marker.setMap(map);
     }
 
+    var editor = CodeMirror.fromTextArea(document.getElementById("arduinocode"), {
+                    lineNumbers: true,
+                    matchBrackets: true,
+                    mode: "text/x-c++src",
+                    readOnly: true,
+                  });
 
    var workspace = Blockly.inject('blocklyDiv', {toolbox: document.getElementById('toolbox')});
    function showCode(){
         var code = Blockly.Arduino.workspaceToCode(workspace);
-        $("#arduinocode").text(code);
+        $("#arduinocode").text(code); 
+        editor.setValue(code); 
     }
     workspace.addChangeListener(showCode);
 
