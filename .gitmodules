@@ -1,3 +1,6 @@
 [submodule "blockly"]
 	path = blockly
 	url = https://github.com/google/blockly.git
+[submodule "blockslibrary"]
+	path = blockslibrary
+	url = https://github.com/BlocklyDuino/blockslibrary.git

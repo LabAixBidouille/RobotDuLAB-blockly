@@ -1,180 +1,151 @@
-/**
- * @license
- * Visual Blocks Language
- *
- * Copyright 2012 Google Inc.
- * https://developers.google.com/blockly/
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-/**
- * @fileoverview Generating JavaScript for list blocks.
- * @author fraser@google.com (Neil Fraser)
- */
-'use strict';
-
-goog.provide('Blockly.JavaScript.lists');
-
-goog.require('Blockly.JavaScript');
+goog.provide('Blockly.Arduino.Robotdulab');
+goog.require('Blockly.Arduino');
 
 
-Blockly.JavaScript [ 'avance' ] = function (block)  {
+var setup_robotdulab = "robotDuLAB.begin();\n";
 
+var define_robotdulab = '#include <RobotDuLAB.h>\n'+
+  '#define TRIGGER_PIN 2 // broche trig du capteur US HC-SR04\n'+
+  '#define ECHO_PIN 4 // broche echo du capteur US HC-SR04\n'+
+  '#define ROUE_DROITE_PIN 5\n'+
+  '#define ROUE_GAUCHE_PIN 3\n'+
+  '#define ANNEAU_LED_PIN 6\n\n'+
+  'RobotDuLAB robotDuLAB(TRIGGER_PIN, ECHO_PIN, ROUE_DROITE_PIN, ROUE_GAUCHE_PIN, ANNEAU_LED_PIN);\n';
 
-  var argument0 = Blockly.JavaScript.valueToCode(block, 'Temps',
-      Blockly.JavaScript.ORDER_NONE) || '0';
-  var argument1 = Blockly.JavaScript.valueToCode(block, 'Couleur',
-      Blockly.JavaScript.ORDER_NONE) || 'VERT';
-  var option = Blockly.JavaScript.valueToCode(block, 'Option',
-      Blockly.JavaScript.ORDER_NONE) || '1';
-  var code  ="Avant("+argument0+","+argument1+"," + option +"); \n";
-  return  code;
-};
-/*
-Blockly.JavaScript['entrer_couleur_main'] = function(block) {
-  var value_r = Blockly.JavaScript.valueToCode(block, 'r', Blockly.JavaScript.ORDER_NONE);
-  var value_v = Blockly.JavaScript.valueToCode(block, 'v', Blockly.JavaScript.ORDER_NONE);
-  var value_b = Blockly.JavaScript.valueToCode(block, 'b', Blockly.JavaScript.ORDER_NONE);
-  var code = "value_r + , + value_v , + value_b ";
-  return code;
-};*/
-Blockly.JavaScript [ 'Stop' ] = function (block)  {
-
-
-  var argument0 = Blockly.JavaScript.valueToCode(block, 'Temps',
-      Blockly.JavaScript.ORDER_NONE) || '0';
-  var argument1 = Blockly.JavaScript.valueToCode(block, 'Couleur',
-      Blockly.JavaScript.ORDER_NONE) || 'VERT';
-  var option = Blockly.JavaScript.valueToCode(block, 'Option',
-      Blockly.JavaScript.ORDER_NONE) || '1';
-  var code  ="Stop("+argument0+","+argument1+"," + option +"); \n";
-  return  code;
-};
-/****** On recupere la variable temps du block avance ** ***/
-Blockly.JavaScript['if_inf'] = function(block) {
-  var value_distance = Blockly.JavaScript.valueToCode(block, 'Distance', Blockly.JavaScript.ORDER_ATOMIC) || '20';
-  var statements_faire = Blockly.JavaScript.statementToCode(block, 'Faire');
-
-  var code = 'if (cm < ' + value_distance +  '){\n' +
-              statements_faire + '} \n';
-
-  return code;
-};
-
-Blockly.JavaScript['if_sup'] = function(block) {
-  var value_distance = Blockly.JavaScript.valueToCode(block, 'Distance', Blockly.JavaScript.ORDER_ATOMIC) || '20';
-  var statements_faire = Blockly.JavaScript.statementToCode(block, 'Faire');
-
-  var code = 'if (cm > ' + value_distance +  '){\n' +
-              statements_faire + '} \n';
-
-  return code;
-};
-
-Blockly.JavaScript['option'] = function(block) {
-  var dropdown_option = block.getFieldValue('option');
-  var value_option = Blockly.JavaScript.valueToCode(block, 'Option', Blockly.JavaScript.ORDER_ATOMIC);
-  var code = dropdown_option + value_option;
-  return [code, Blockly.JavaScript.ORDER_NONE];
-};
-
-Blockly.JavaScript [ 'recule' ] = function (block)  {
-
-  var argument0 = Blockly.JavaScript.valueToCode(block, 'Temps',
-      Blockly.JavaScript.ORDER_NONE) || '0';
-  var argument1 = Blockly.JavaScript.valueToCode(block, 'Couleur',
-      Blockly.JavaScript.ORDER_NONE) || 'VERT';
-  var option = Blockly.JavaScript.valueToCode(block, 'Option',
-      Blockly.JavaScript.ORDER_NONE) || '1';
-
-  var code  ="Arriere("+argument0+","+argument1+"," + option +"); \n";
+Blockly.Arduino ['Avancer'] = function (block)  {
+  Blockly.Arduino.setups_["setup_robotdulab"] = setup_robotdulab;
+  Blockly.Arduino.definitions_["define_robotdulab"] = define_robotdulab;
+  var code  ="robotDuLAB.Avancer();\n";
   return  code;
 };
 
-Blockly.JavaScript [ 'RotationGauche' ] = function (block)  {
-
-  var argument0 = Blockly.JavaScript.valueToCode(block, 'Temps',
-      Blockly.JavaScript.ORDER_NONE) || '0';
-  var argument1 = Blockly.JavaScript.valueToCode(block, 'Couleur',
-      Blockly.JavaScript.ORDER_NONE) || 'VERT';
-  var option = Blockly.JavaScript.valueToCode(block, 'Option',
-      Blockly.JavaScript.ORDER_NONE) || '1';
-  var code  ="Gauche("+argument0+","+argument1+"," + option +"); \n";
-  return  code;
-};
-Blockly.JavaScript [ 'RotationDroite' ] = function (block)  {
-
-  var argument0 = Blockly.JavaScript.valueToCode(block, 'Temps',
-      Blockly.JavaScript.ORDER_NONE) || '0';
-  var argument1 = Blockly.JavaScript.valueToCode(block, 'Couleur',
-      Blockly.JavaScript.ORDER_NONE) || 'VERT';
-  var option = Blockly.JavaScript.valueToCode(block, 'Option',
-      Blockly.JavaScript.ORDER_NONE) || '1';
-
-  var code  ="Droite("+argument0+","+argument1+"," + option +"); \n";
+Blockly.Arduino ['Reculer'] = function (block)  {
+  Blockly.Arduino.setups_["setup_robotdulab"] = setup_robotdulab;
+  Blockly.Arduino.definitions_["define_robotdulab"] = define_robotdulab;
+  var code  ="robotDuLAB.Reculer()\n";
   return  code;
 };
 
-Blockly.JavaScript [ 'VERT' ] = function (block)  {
+Blockly.Arduino ['Arreter'] = function (block)  {
+  Blockly.Arduino.setups_["setup_robotdulab"] = setup_robotdulab;
+  Blockly.Arduino.definitions_["define_robotdulab"] = define_robotdulab;
+  var code  ="robotDuLAB.Arreter()\n";
+  return  code;
+};
 
+Blockly.Arduino ['TournerAGauche'] = function (block)  {
+  Blockly.Arduino.setups_["setup_robotdulab"] = setup_robotdulab;
+  Blockly.Arduino.definitions_["define_robotdulab"] = define_robotdulab;
+  var code  ="robotDuLAB.TournerAGauche()\n";
+  return  code;
+};
+
+Blockly.Arduino ['TournerADroite'] = function (block)  {
+  Blockly.Arduino.setups_["setup_robotdulab"] = setup_robotdulab;
+  Blockly.Arduino.definitions_["define_robotdulab"] = define_robotdulab;
+  var code  ="robotDuLAB.TournerADroite()\n";
+  return  code;
+};
+
+Blockly.Arduino ['Attendre'] = function (block)  {
+  var time = Blockly.Arduino.valueToCode(block, 'DELAY_TIME', Blockly.Arduino.ORDER_ATOMIC);
+  var code  ="delay("+time+");\n";
+  return  code;
+};
+
+Blockly.Arduino ['AnimerAnneauLed'] = function (block)  {
+  Blockly.Arduino.setups_["setup_robotdulab"] = setup_robotdulab;
+  Blockly.Arduino.definitions_["define_robotdulab"] = define_robotdulab;
+  
+  var couleur = Blockly.Arduino.valueToCode(block, 'Couleur', Blockly.Arduino.ORDER_ATOMIC);
+  var animation = Blockly.Arduino.valueToCode(block, 'Animation', Blockly.Arduino.ORDER_ATOMIC);;
+
+  var code  ="robotDuLAB.AnimerAnneauLed("+animation+","+couleur+");\n";
+  return  code;
+};
+
+Blockly.Arduino ['Distance'] = function (block)  {
+  Blockly.Arduino.setups_["setup_robotdulab"] = setup_robotdulab;
+  Blockly.Arduino.definitions_["define_robotdulab"] = define_robotdulab;
+  var code  ="robotDuLAB.getDistance()";
+  return [ code,  Blockly.Arduino.ORDER_ATOMIC ];
+};
+
+Blockly.Arduino['Animation'] = function (block)  {
+  var dropdown_option = block.getFieldValue('Animation');
+  var value_option = Blockly.Arduino.valueToCode(block, 'Animation', Blockly.Arduino.ORDER_ATOMIC);
+  var code  = dropdown_option +" "+value_option;
+  return  [ code,  Blockly.Arduino.ORDER_ATOMIC ];
+};
+
+Blockly.Arduino['VERT'] = function (block)  {
   var code  ="VERT";
-  return  [ code,  Blockly.JavaScript.ORDER_MEMBER ];
+  return  [ code,  Blockly.Arduino.ORDER_ATOMIC ];
 };
 
-Blockly.JavaScript['ROUGE'] = function (block)  {
+Blockly.Arduino['ROUGE'] = function (block)  {
   var code  ="ROUGE";
-  return  [ code,  Blockly.JavaScript.ORDER_MEMBER ];
+  return  [ code,  Blockly.Arduino.ORDER_ATOMIC ];
 };
 
-Blockly.JavaScript['MAGENTA'] = function (block)  {
+Blockly.Arduino['MAGENTA'] = function (block)  {
   var code  ="MAGENTA";
-  return  [ code,  Blockly.JavaScript.ORDER_MEMBER ];
+  return  [ code,  Blockly.Arduino.ORDER_ATOMIC ];
 };
 
-Blockly.JavaScript['BLEU'] = function (block)  {
+Blockly.Arduino['BLEU'] = function (block)  {
   var code  ="BLEU";
-  return  [ code,  Blockly.JavaScript.ORDER_MEMBER ];
+  return  [ code,  Blockly.Arduino.ORDER_ATOMIC ];
 };
 
-Blockly.JavaScript['TURQUOISE'] = function (block)  {
+Blockly.Arduino['TURQUOISE'] = function (block)  {
 
   var code  ="TURQUOISE";
-  return  [ code,  Blockly.JavaScript.ORDER_MEMBER ];
+  return  [ code,  Blockly.Arduino.ORDER_ATOMIC ];
 };
 
-Blockly.JavaScript['VIOLET'] = function (block)  {
+Blockly.Arduino['VIOLET'] = function (block)  {
   var code  ="VIOLET";
-  return  [ code,  Blockly.JavaScript.ORDER_MEMBER ];
+  return  [ code,  Blockly.Arduino.ORDER_ATOMIC ];
 };
 
-Blockly.JavaScript['JAUNE'] = function (block) {
+Blockly.Arduino['JAUNE'] = function (block) {
   var code  ="JAUNE";
-  return  [ code,  Blockly.JavaScript.ORDER_MEMBER ];
+  return  [ code,  Blockly.Arduino.ORDER_ATOMIC ];
 };
 
-Blockly.JavaScript['loop_dist_inf'] = function(block) {
-  var value_while = Blockly.JavaScript.valueToCode(block, 'while', Blockly.JavaScript.ORDER_ATOMIC);
-  var statements_do = Blockly.JavaScript.statementToCode(block, 'do');
+Blockly.Arduino['loop_dist_inf'] = function(block) {
+  var value_while = Blockly.Arduino.valueToCode(block, 'while', Blockly.Arduino.ORDER_ATOMIC);
+  var statements_do = Blockly.Arduino.statementToCode(block, 'do');
 
-  var code = 'while (cm < ' + value_while +') {\n'+ statements_do +'}\n';
+  var code = 'while (robotDuLAB.getDistance() < ' + value_while +')\n{\n'+ statements_do +'}\n';
   return code;
 };
 
-Blockly.JavaScript['loop_dist_sup'] = function(block) {
-  var value_while = Blockly.JavaScript.valueToCode(block, 'while', Blockly.JavaScript.ORDER_ATOMIC);
-  var statements_do = Blockly.JavaScript.statementToCode(block, 'do');
+Blockly.Arduino['loop_dist_sup'] = function(block) {
+  var value_while = Blockly.Arduino.valueToCode(block, 'while', Blockly.Arduino.ORDER_ATOMIC);
+  var statements_do = Blockly.Arduino.statementToCode(block, 'do');
 
-  var code = 'while (cm > ' + value_while +') {\n'+ statements_do +'}\n';
+  var code = 'while (robotDuLAB.getDistance() > ' + value_while +')\n{\n'+ statements_do +'}\n';
+  return code;
+};
+
+Blockly.Arduino['if_inf'] = function(block) {
+  var value_distance = Blockly.Arduino.valueToCode(block, 'Distance', Blockly.Arduino.ORDER_ATOMIC) || '20';
+  var statements_faire = Blockly.Arduino.statementToCode(block, 'Faire');
+
+  var code = 'if (robotDuLAB.getDistance() < ' + value_distance +  ')\n{\n' +
+              statements_faire + '} \n';
+
+  return code;
+};
+
+Blockly.Arduino['if_sup'] = function(block) {
+  var value_distance = Blockly.Arduino.valueToCode(block, 'Distance', Blockly.Arduino.ORDER_ATOMIC) || '20';
+  var statements_faire = Blockly.Arduino.statementToCode(block, 'Faire');
+
+  var code = 'if (robotDuLAB.getDistance() > ' + value_distance +  ')\n{\n' +
+              statements_faire + '} \n';
+
   return code;
 };
