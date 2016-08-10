@@ -222,33 +222,31 @@ Blockly.Blocks['JAUNE'] = {
 
 Blockly.Blocks['loop_dist_inf'] = {
   init: function() {
-    this.appendValueInput("while")
+    this.appendValueInput("Distance")
+        .setCheck('Number')
+        .appendField("tant que distance <");
+    this.appendStatementInput("Faire")
         .setCheck(null)
-        .appendField("while distance <");
-    this.appendStatementInput("do")
-        .setCheck(null)
-        .appendField("do");
+        .appendField("faire");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(120);
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
   }
 };
 
 Blockly.Blocks['loop_dist_sup'] = {
   init: function() {
-    this.appendValueInput("while")
+    this.appendValueInput("Distance")
+        .setCheck('Number')
+        .appendField("tant que distance >");
+    this.appendStatementInput("Faire")
         .setCheck(null)
-        .appendField("while distance >");
-    this.appendStatementInput("do")
-        .setCheck(null)
-        .appendField("do");
+        .appendField("faire");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(120);
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
   }
 };
 
@@ -258,14 +256,13 @@ Blockly.Blocks['if_inf'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.appendValueInput("Distance")
-        .setCheck(null)
-        .appendField("if distance (en cm) <");
+        .setCheck('Number')
+        .appendField("si distance (en cm) <");
     this.appendStatementInput("Faire")
         .setCheck(null)
-        .appendField("then");
+        .appendField("alors");
     this.setColour(210);
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
   }
 };
 
@@ -274,13 +271,12 @@ Blockly.Blocks['if_sup'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.appendValueInput("Distance")
-        .setCheck(null)
-        .appendField("if distance (en cm) >");
+        .setCheck('Number')
+        .appendField("si distance (en cm) >");
     this.appendStatementInput("Faire")
         .setCheck(null)
-        .appendField("then");
+        .appendField("alors");
     this.setColour(210);
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
   }
 };

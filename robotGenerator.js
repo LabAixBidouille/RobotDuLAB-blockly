@@ -115,22 +115,28 @@ Blockly.Arduino['JAUNE'] = function (block) {
 };
 
 Blockly.Arduino['loop_dist_inf'] = function(block) {
-  var value_while = Blockly.Arduino.valueToCode(block, 'while', Blockly.Arduino.ORDER_ATOMIC);
-  var statements_do = Blockly.Arduino.statementToCode(block, 'do');
+  Blockly.Arduino.setups_["setup_robotdulab"] = setup_robotdulab;
+  Blockly.Arduino.definitions_["define_robotdulab"] = define_robotdulab;
+  var value_while = Blockly.Arduino.valueToCode(block, 'Distance', Blockly.Arduino.ORDER_ATOMIC);
+  var statements_do = Blockly.Arduino.statementToCode(block, 'Faire');
 
   var code = 'while (robotDuLAB.getDistance() < ' + value_while +')\n{\n'+ statements_do +'}\n';
   return code;
 };
 
 Blockly.Arduino['loop_dist_sup'] = function(block) {
-  var value_while = Blockly.Arduino.valueToCode(block, 'while', Blockly.Arduino.ORDER_ATOMIC);
-  var statements_do = Blockly.Arduino.statementToCode(block, 'do');
+  Blockly.Arduino.setups_["setup_robotdulab"] = setup_robotdulab;
+  Blockly.Arduino.definitions_["define_robotdulab"] = define_robotdulab;
+  var value_while = Blockly.Arduino.valueToCode(block, 'Distance', Blockly.Arduino.ORDER_ATOMIC);
+  var statements_do = Blockly.Arduino.statementToCode(block, 'Faire');
 
   var code = 'while (robotDuLAB.getDistance() > ' + value_while +')\n{\n'+ statements_do +'}\n';
   return code;
 };
 
 Blockly.Arduino['if_inf'] = function(block) {
+  Blockly.Arduino.setups_["setup_robotdulab"] = setup_robotdulab;
+  Blockly.Arduino.definitions_["define_robotdulab"] = define_robotdulab;
   var value_distance = Blockly.Arduino.valueToCode(block, 'Distance', Blockly.Arduino.ORDER_ATOMIC) || '20';
   var statements_faire = Blockly.Arduino.statementToCode(block, 'Faire');
 
@@ -141,6 +147,8 @@ Blockly.Arduino['if_inf'] = function(block) {
 };
 
 Blockly.Arduino['if_sup'] = function(block) {
+  Blockly.Arduino.setups_["setup_robotdulab"] = setup_robotdulab;
+  Blockly.Arduino.definitions_["define_robotdulab"] = define_robotdulab;
   var value_distance = Blockly.Arduino.valueToCode(block, 'Distance', Blockly.Arduino.ORDER_ATOMIC) || '20';
   var statements_faire = Blockly.Arduino.statementToCode(block, 'Faire');
 
