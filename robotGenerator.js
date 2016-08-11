@@ -57,8 +57,8 @@ Blockly.Arduino ['AnimerAnneauLed'] = function (block)  {
   Blockly.Arduino.setups_["setup_robotdulab"] = setup_robotdulab;
   Blockly.Arduino.definitions_["define_robotdulab"] = define_robotdulab;
   
-  var couleur = Blockly.Arduino.valueToCode(block, 'Couleur', Blockly.Arduino.ORDER_ATOMIC);
-  var animation = Blockly.Arduino.valueToCode(block, 'Animation', Blockly.Arduino.ORDER_ATOMIC);;
+  var couleur = Blockly.Arduino.valueToCode(block, 'Couleur', Blockly.Arduino.ORDER_ATOMIC)||'VERT';
+  var animation = Blockly.Arduino.valueToCode(block, 'Animation', Blockly.Arduino.ORDER_ATOMIC)||'COULEUR';
 
   var code  ="robotDuLAB.AnimerAnneauLed("+animation+","+couleur+");\n";
   return  code;
@@ -74,7 +74,7 @@ Blockly.Arduino ['Distance'] = function (block)  {
 Blockly.Arduino['Animation'] = function (block)  {
   var dropdown_option = block.getFieldValue('Animation');
   var value_option = Blockly.Arduino.valueToCode(block, 'Animation', Blockly.Arduino.ORDER_ATOMIC);
-  var code  = dropdown_option +" "+value_option;
+  var code  = dropdown_option;
   return  [ code,  Blockly.Arduino.ORDER_ATOMIC ];
 };
 
