@@ -4,7 +4,9 @@ goog.require('Blockly.Arduino');
 
 var setup_robotdulab = "robotDuLAB.begin();\n";
 
-var define_robotdulab = '#include <RobotDuLAB.h>\n'+
+var define_robotdulab = '#include <Servo.h>\n'+
+  '#include <Adafruit_NeoPixel.h>\n'+
+  '#include <RobotDuLAB.h>\n'+
   '#define TRIGGER_PIN 2 // broche trig du capteur US HC-SR04\n'+
   '#define ECHO_PIN 4 // broche echo du capteur US HC-SR04\n'+
   '#define ROUE_DROITE_PIN 5\n'+
