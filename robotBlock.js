@@ -135,7 +135,7 @@ Blockly.Blocks['Animation'] = {
                                                 ["Couleur cyclique", "COULEUR_CYCLIQUE"]]), 
                                                     "Animation");
         
-    this.setTooltip('');
+    this.setTooltip('Permet de choisir le motif d\'animation de l\'anneau de LED');
 
     this.setOutput(true, 'Animation');
     this.setColour(0);
@@ -221,6 +221,7 @@ Blockly.Blocks['JAUNE'] = {
 };
 
 Blockly.Blocks['loop_dist_inf'] = {
+  helpUrl: 'http://wiki.labaixbidouille.com/index.php/RoboduLAB',
   init: function() {
     this.appendValueInput("Distance")
         .setCheck('Number')
@@ -237,6 +238,7 @@ Blockly.Blocks['loop_dist_inf'] = {
 };
 
 Blockly.Blocks['loop_dist_sup'] = {
+  helpUrl: 'http://wiki.labaixbidouille.com/index.php/RoboduLAB',
   init: function() {
     this.appendValueInput("Distance")
         .setCheck('Number')
@@ -254,6 +256,7 @@ Blockly.Blocks['loop_dist_sup'] = {
 
 
 Blockly.Blocks['if_inf'] = {
+  helpUrl: 'http://wiki.labaixbidouille.com/index.php/RoboduLAB',
   init: function() {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -270,6 +273,7 @@ Blockly.Blocks['if_inf'] = {
 };
 
 Blockly.Blocks['if_sup'] = {
+  helpUrl: 'http://wiki.labaixbidouille.com/index.php/RoboduLAB',
   init: function() {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
