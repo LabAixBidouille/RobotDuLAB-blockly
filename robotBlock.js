@@ -225,6 +225,7 @@ Blockly.Blocks['loop_dist_inf'] = {
     this.appendValueInput("Distance")
         .setCheck('Number')
         .appendField("tant que distance <");
+    this.setInputsInline(true);
     this.appendStatementInput("Faire")
         .setCheck(null)
         .appendField("faire");
@@ -240,6 +241,7 @@ Blockly.Blocks['loop_dist_sup'] = {
     this.appendValueInput("Distance")
         .setCheck('Number')
         .appendField("tant que distance >");
+    this.setInputsInline(true);
     this.appendStatementInput("Faire")
         .setCheck(null)
         .appendField("faire");
@@ -258,6 +260,7 @@ Blockly.Blocks['if_inf'] = {
     this.appendValueInput("Distance")
         .setCheck('Number')
         .appendField("si distance (en cm) <");
+    this.setInputsInline(true);
     this.appendStatementInput("Faire")
         .setCheck(null)
         .appendField("alors");
@@ -273,9 +276,11 @@ Blockly.Blocks['if_sup'] = {
     this.appendValueInput("Distance")
         .setCheck('Number')
         .appendField("si distance (en cm) >");
+    this.setInputsInline(true);
     this.appendStatementInput("Faire")
         .setCheck(null)
         .appendField("alors");
+
     this.setColour(210);
     this.setTooltip('');
   }

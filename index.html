@@ -302,8 +302,20 @@
        </category>
 
         <category name="Logique" colour="210">
-          <block type="if_inf"></block>
-          <block type="if_sup"></block>
+          <block type="if_inf">
+              <value name="Distance">
+                  <block type="math_number">
+                    <field name="NUM">1</field>
+                  </block>
+                </value>
+          </block>
+          <block type="if_sup">
+              <value name="Distance">
+                <block type="math_number">
+                  <field name="NUM">1</field>
+                </block>
+              </value>
+          </block>
           <block type="controls_if"></block>
           <block type="logic_compare"></block>
           <block type="logic_operation"></block>
@@ -312,8 +324,20 @@
         </category>
 
         <category name="Structure de Controle" colour="120">
-            <block type="loop_dist_inf"></block>
-            <block type="loop_dist_sup"></block>
+            <block type="loop_dist_inf">
+                <value name="Distance">
+                  <block type="math_number">
+                    <field name="NUM">1</field>
+                  </block>
+                </value>
+            </block>
+            <block type="loop_dist_sup">
+                <value name="Distance">
+                  <block type="math_number">
+                    <field name="NUM">1</field>
+                  </block>
+                </value>
+            </block>
             <block type="controls_for">
                 <value name="FROM">
                   <block type="math_number">
