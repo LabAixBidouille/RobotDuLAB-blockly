@@ -24,6 +24,9 @@
 <script src="blockly/msg/js/fr.js"></script>
 <script src="blockly/appengine/storage.js"></script>
 
+<script src="blockslibrary/blocks/arduino_base/arduino_base.js"></script>
+<script src="blockslibrary/generators/arduino_base.js"></script>
+
 <!--RobotduLAB Blockly -->
 <script src ="robotGenerator.js"> </script>
 <script src="robotBlock.js"> </script>
@@ -327,6 +330,7 @@
         </category>
 
         <category name="Structure de Controle" colour="120">
+            <block type="base_setup"></block>
             <block type="loop_dist_inf">
                 <value name="Distance">
                   <block type="math_number">
