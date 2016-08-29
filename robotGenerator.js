@@ -24,28 +24,28 @@ Blockly.Arduino ['Avancer'] = function (block)  {
 Blockly.Arduino ['Reculer'] = function (block)  {
   Blockly.Arduino.setups_["setup_robotdulab"] = setup_robotdulab;
   Blockly.Arduino.definitions_["define_robotdulab"] = define_robotdulab;
-  var code  ="robotDuLAB.Reculer()\n";
+  var code  ="robotDuLAB.Reculer();\n";
   return  code;
 };
 
 Blockly.Arduino ['Arreter'] = function (block)  {
   Blockly.Arduino.setups_["setup_robotdulab"] = setup_robotdulab;
   Blockly.Arduino.definitions_["define_robotdulab"] = define_robotdulab;
-  var code  ="robotDuLAB.Arreter()\n";
+  var code  ="robotDuLAB.Arreter();\n";
   return  code;
 };
 
 Blockly.Arduino ['TournerAGauche'] = function (block)  {
   Blockly.Arduino.setups_["setup_robotdulab"] = setup_robotdulab;
   Blockly.Arduino.definitions_["define_robotdulab"] = define_robotdulab;
-  var code  ="robotDuLAB.TournerAGauche()\n";
+  var code  ="robotDuLAB.TournerAGauche();\n";
   return  code;
 };
 
 Blockly.Arduino ['TournerADroite'] = function (block)  {
   Blockly.Arduino.setups_["setup_robotdulab"] = setup_robotdulab;
   Blockly.Arduino.definitions_["define_robotdulab"] = define_robotdulab;
-  var code  ="robotDuLAB.TournerADroite()\n";
+  var code  ="robotDuLAB.TournerADroite();\n";
   return  code;
 };
 
@@ -69,7 +69,7 @@ Blockly.Arduino ['AnimerAnneauLed'] = function (block)  {
 Blockly.Arduino ['Distance'] = function (block)  {
   Blockly.Arduino.setups_["setup_robotdulab"] = setup_robotdulab;
   Blockly.Arduino.definitions_["define_robotdulab"] = define_robotdulab;
-  var code  ="robotDuLAB.getDistance()";
+  var code  ="robotDuLAB.getDistance();";
   return [ code,  Blockly.Arduino.ORDER_ATOMIC ];
 };
 
