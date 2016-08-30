@@ -69,7 +69,7 @@ Blockly.Arduino ['AnimerAnneauLed'] = function (block)  {
 Blockly.Arduino ['Distance'] = function (block)  {
   Blockly.Arduino.setups_["setup_robotdulab"] = setup_robotdulab;
   Blockly.Arduino.definitions_["define_robotdulab"] = define_robotdulab;
-  var code  ="robotDuLAB.getDistance();";
+  var code  ="robotDuLAB.getDistanceObstacle();";
   return [ code,  Blockly.Arduino.ORDER_ATOMIC ];
 };
 
@@ -122,7 +122,7 @@ Blockly.Arduino['loop_dist_inf'] = function(block) {
   var value_while = Blockly.Arduino.valueToCode(block, 'Distance', Blockly.Arduino.ORDER_ATOMIC);
   var statements_do = Blockly.Arduino.statementToCode(block, 'Faire');
 
-  var code = 'while (robotDuLAB.getDistance() < ' + value_while +')\n{\n'+ statements_do +'}\n';
+  var code = 'while (robotDuLAB.getDistanceObstacle() < ' + value_while +')\n{\n'+ statements_do +'}\n';
   return code;
 };
 
@@ -132,7 +132,7 @@ Blockly.Arduino['loop_dist_sup'] = function(block) {
   var value_while = Blockly.Arduino.valueToCode(block, 'Distance', Blockly.Arduino.ORDER_ATOMIC);
   var statements_do = Blockly.Arduino.statementToCode(block, 'Faire');
 
-  var code = 'while (robotDuLAB.getDistance() > ' + value_while +')\n{\n'+ statements_do +'}\n';
+  var code = 'while (robotDuLAB.getDistanceObstacle() > ' + value_while +')\n{\n'+ statements_do +'}\n';
   return code;
 };
 
@@ -142,7 +142,7 @@ Blockly.Arduino['if_inf'] = function(block) {
   var value_distance = Blockly.Arduino.valueToCode(block, 'Distance', Blockly.Arduino.ORDER_ATOMIC) || '20';
   var statements_faire = Blockly.Arduino.statementToCode(block, 'Faire');
 
-  var code = 'if (robotDuLAB.getDistance() < ' + value_distance +  ')\n{\n' +
+  var code = 'if (robotDuLAB.getDistanceObstacle() < ' + value_distance +  ')\n{\n' +
               statements_faire + '} \n';
 
   return code;
@@ -154,7 +154,7 @@ Blockly.Arduino['if_sup'] = function(block) {
   var value_distance = Blockly.Arduino.valueToCode(block, 'Distance', Blockly.Arduino.ORDER_ATOMIC) || '20';
   var statements_faire = Blockly.Arduino.statementToCode(block, 'Faire');
 
-  var code = 'if (robotDuLAB.getDistance() > ' + value_distance +  ')\n{\n' +
+  var code = 'if (robotDuLAB.getDistanceObstacle() > ' + value_distance +  ')\n{\n' +
               statements_faire + '} \n';
 
   return code;
